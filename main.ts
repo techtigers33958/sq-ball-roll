@@ -31,12 +31,15 @@ function dispenseBall () {
 // Manual control:
 //
 //
-// -on demand, calls clearball 
-//
+// -on demand, calls clearball
 input.onButtonPressed(Button.AB, function () {
     clearBall()
 })
 // Manual control:
+//
+// -On demand, can force the ball to drop
+//
+// -used if challenge is left half done.
 input.onButtonPressed(Button.B, function () {
     dispenseBall()
 })
@@ -65,7 +68,7 @@ function reset () {
 // Manual control:
 //
 //
-// -On demand, can reset the program 
+// -On demand, can reset the program
 //
 // -used if challenge is left half done.
 input.onButtonPressed(Button.A, function () {
