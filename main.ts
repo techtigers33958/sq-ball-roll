@@ -1,3 +1,11 @@
+// Checks if name (name of servo motor) = "servo_1"
+//
+//
+// if yes, then servo pin is set to value (an angle)
+//
+//
+// if no, it will move on to the next one ("servo_2"
+// or "servo_3")
 radio.onReceivedValue(function (name, value) {
     if (name == "servo_1") {
         pins.servoWritePin(AnalogPin.P0, value)
@@ -7,29 +15,59 @@ radio.onReceivedValue(function (name, value) {
         pins.servoWritePin(AnalogPin.P4, value)
     }
 })
-function clearBall () {
-    pins.servoWritePin(AnalogPin.P0, 30)
-    pins.servoWritePin(AnalogPin.P2, 30)
-    pins.servoWritePin(AnalogPin.P4, 30)
-}
-function reset () {
-    radio.setGroup(70)
-    pins.servoWritePin(AnalogPin.P0, 0)
-    pins.servoWritePin(AnalogPin.P2, 0)
-    pins.servoWritePin(AnalogPin.P4, 0)
-}
+// Dispenses the ball:
+//
+// -pushes ball out
+//
+// -waits 1 sec
+//
+// -moves motor back
 function dispenseBall () {
     radio.setGroup(70)
     pins.servoWritePin(AnalogPin.P10, 45)
     basic.pause(1000)
     pins.servoWritePin(AnalogPin.P10, 100)
 }
+// Manual control:
+//
+//
+// -on demand, calls clearball 
+//
 input.onButtonPressed(Button.AB, function () {
     clearBall()
 })
+// Manual control:
 input.onButtonPressed(Button.B, function () {
     dispenseBall()
 })
+// Dispenses the ball:
+//
+//
+// -used when ball gets stuck and needs to be pushed
+// out
+function clearBall () {
+    pins.servoWritePin(AnalogPin.P0, 30)
+    pins.servoWritePin(AnalogPin.P2, 30)
+    pins.servoWritePin(AnalogPin.P4, 30)
+}
+// Resets program:
+//
+//
+// -sets radio group to 70
+//
+// -resets the servo pins so it's ready for next use
+function reset () {
+    radio.setGroup(70)
+    pins.servoWritePin(AnalogPin.P0, 0)
+    pins.servoWritePin(AnalogPin.P2, 0)
+    pins.servoWritePin(AnalogPin.P4, 0)
+}
+// Manual control:
+//
+//
+// -On demand, can reset the program 
+//
+// -used if challenge is left half done.
 input.onButtonPressed(Button.A, function () {
     reset()
 })
